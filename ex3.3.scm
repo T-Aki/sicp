@@ -14,7 +14,7 @@
               ((eq? m 'deposit) deposit)
               (else (error "Unknown request -- MAKE-ACCOUNT"
                        m)))
-        (lambda (x) "Incorrect password")))
+        (error "Incorrect password")))
   dispatch)
 
 (define acc (make-account 100 'secret-password))
