@@ -44,6 +44,7 @@
                        m))))
   dispatch)
 
+(define random-init 1.0)
 
 (define rand
   (let ((x random-init))
@@ -86,6 +87,14 @@
                       trials-passed
                       x2))))))
   (iter trials 0 initial-x))
+
+;3.1.3
+(define (make-smplified-withdraw balance)
+  (lambda (amount)
+    (set! balance (- balance amount))
+    balance))
+
+(define W (make-smplified-withdraw 25))
 
 
 
