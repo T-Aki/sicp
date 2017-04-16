@@ -3,7 +3,7 @@
 (define (loop? x)
   (let ((countered '()))
     (define (count? x)
-      (cond ((null? x) #f)
+      (cond (not (pair? x) #f)
             ((memq x countered) #t)
             (else (set! count? (cons x countered))
                   (countered (cdr x)))))
