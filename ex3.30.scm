@@ -4,4 +4,4 @@
     (if (null? (cdr a))
         (ser-signal! cn 0)
         (ripple-carry-adder (cdr a) (cdr b) (cdr s) c-in))
-    (full-adder (car a) (car b) cn (car s) c-in)))
+    (full-adder (car a) (car b) c-in (car s) c-in)))
