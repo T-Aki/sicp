@@ -4,11 +4,11 @@ a
 pe pa m 45
 pe m pa 35
 pa pe m 45
-pa m oe 35
+pa m pe 50
 m pe pa 40
 m pa pe 40
 
-ans 35, 40, 45
+ans 35, 40, 45,50
 
 b
 pe 110
@@ -21,4 +21,4 @@ m,pe 60
 pa, m 45
 m,pa 30
 
-ans 30,50,55,60,80,110
+ans 30,55,60,80,110
