@@ -9,11 +9,13 @@
                        me))
           ((and (has-value? a) (has-value? c))
            (set-value! b
-                       (- (* 2 (get-value c)) (get-value a))
+                       (- (* 2 (get-value c)) 
+                          (get-value a))
                        me))
           ((and (has-value? c) (has-value? b))
            (set-value! a
-                       (- (* 2 (get-value c)) (get-value b))
+                       (- (* 2 (get-value c)) 
+                          (get-value b))
                        me)))
     (define (process-forget-value)
       (forget-value! c me)
