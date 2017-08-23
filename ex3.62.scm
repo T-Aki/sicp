@@ -6,4 +6,6 @@
 		(mul-series s1 
               (invert-unit-series (scale-steram s2 (/ 1 (stream-car s2))))))
  
+ ;1から始まるストリームに変換する必要がある
+ 
  
