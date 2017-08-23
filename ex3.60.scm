@@ -16,3 +16,5 @@
 	(mul-series cosine-series cosine-series)) 4)
 (stream-ref (add-streams (mul-series sin-series sin-series)
 	(mul-series cosine-series cosine-series)) 5)
+
+(car1 + cdr1)(car2 + cdr2)
