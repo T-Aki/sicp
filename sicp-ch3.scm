@@ -120,14 +120,14 @@
           (else
            (set-cdr! (rear-ptr queue) new-pair)
            (set-rear-ptr! queue new-pair)
-           queue)))) 
+           queue))))
 
 (define (delete-queue! queue)
   (cond ((empty-queue? queue)
          (error "DELETE! called with an empty queue" queue))
         (else
          (set-front-ptr! queue (cdr (front-ptr queue)))
-         queue))) 
+         queue)))
 
 ;3.3.3
 
@@ -205,7 +205,7 @@
                       (cons (list key-1
                                   (cons key-2 value))
                             (cdr local-table)))))
-      'ok)    
+      'ok)
     (define (dispatch m)
       (cond ((eq? m 'lookup-proc) lookup)
             ((eq? m 'insert-proc!) insert!)
@@ -285,11 +285,11 @@
           (begin (ser! signal-value new-value)
             (call-each action-procedure))
           'done))
-    
+
     (define (accept-action-procedure! proc)
       (set! action-procedure (cons proc action-procedure))
       (proc))
-    
+
     (define (dispatch m)
       (cond ((eq? m 'get-signal) signal-value)
             ((eq? m 'set-signal!) set-my-signal!)
@@ -332,7 +332,7 @@
 
 (define (probe name wire)
   (add-action! wire
-               (lambda ()        
+               (lambda ()
                  (newline)
                  (display name)
                  (display " ")
@@ -398,11 +398,11 @@
     (forget-value! a2 me)
     (process-new-value))
   (define (me request)
-    (cond ((eq? request 'I-have-a-value)  
+    (cond ((eq? request 'I-have-a-value)
            (process-new-value))
-          ((eq? request 'I-lost-my-value) 
+          ((eq? request 'I-lost-my-value)
            (process-forget-value))
-          (else 
+          (else
            (error "Unknown request -- ADDER" request))))
   (connect a1 me)
   (connect a2 me)
@@ -554,7 +554,7 @@
       serializer-p)))
 
 (define (make-mutex)
-  (let ((cell (list false)))            
+  (let ((cell (list false)))
     (define (the-mutex m)
       (cond ((eq? m 'acquire)
              (if (test-and-set! cell)
@@ -647,7 +647,21 @@
 
 
 
+(stream-filter (lambda (pair)
+    (prime? (+ (car (pair (cadr pair))))
+    int-pairs)))
 
+(define (interleaves s1 s2)
+  (if (stream-null? s1)
+    s2
+    (cons-stream (stream-car s1)
+      (interleaves s2 (stream-cdr s1)))))
 
-
+(define (pairs s t)
+  (cons-stream
+    (list (stream-car s) (stream-car t))
+    (interleaves
+      (stream-map (lambda (x) (list (stream-car s) x))
+        (stream-cdr t))
+      (pairs (stream-cdr s) (stream-cdr t)))))
 
