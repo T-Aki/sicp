@@ -5,7 +5,7 @@
   (if (no-operands? exps)
       '()
       (let (left-first (eval (first-exp exps) env))
-        (cons left-first list-of-values (rest-exp exps) env))))
+        (cons (left-first list-of-values (rest-exp exps) env)))))
 
 ;右から左へ評価
 
