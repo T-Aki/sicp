@@ -12,7 +12,7 @@
 (define (list-of-values exps env)
 	(if (no-operands? exps)
      '()
-     (let (right-first (list-of-values ( rest-exp exps) env))
+     (let (right-first (list-of-values (rest-exp exps) env))
        (cons (eval (first-exp exps) env)
              right-first))))
 
