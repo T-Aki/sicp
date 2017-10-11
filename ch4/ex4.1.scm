@@ -16,9 +16,3 @@
        (cons (eval (first-exp exps) env)
              right-first))))
 
-
-(define val 10)
-
-(define exp '((set! val (+ val 2)) (set! val (* val 2))))
-
-(list-of-values exp val)
