@@ -59,7 +59,6 @@
 		others)))))
 
 ;c
-;procedure-bodyは複数回呼ばれる
 
 (define (contain-defines exps) 
 	(if (null? exps) 
