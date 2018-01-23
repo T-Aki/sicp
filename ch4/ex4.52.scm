@@ -1,0 +1,30 @@
+(load "./4.3")
+
+(define (analyze exp)
+  (cond ((self-evaluating? exp) 
+         (analyze-self-evaluating exp))
+        ((quoted? exp) (analyze-quoted exp))
+        ((variable? exp) (analyze-variable exp))
+        ((assignment? exp) (analyze-assignment exp))
+        ((definition? exp) (analyze-definition exp))
+        ((if? exp) (analyze-if exp))
+        ((lambda? exp) (analyze-lambda exp))
+        ((begin? exp) (analyze-sequence (begin-actions exp)))
+        ((cond? exp) (analyze (cond->if exp)))
+        ((application? exp) (analyze-application exp))
+        ((amb? exp) (analyze-amb exp))
+        ((if-fail? expr) (analyze-if-fail expr)) 
+        (else
+         (error "Unknown expression type -- ANALYZE" exp))))
+
+(define (if-fail? expr) (tagged-list? expr 'if-fail)) 
+
+(define (analyze-if-fail expr) 
+	(let ((first (analyze (cadr expr))) 
+		(second (analyze (caddr expr)))) 
+	(lambda (env succeed fail) 
+		(first env 
+			(lambda (value fail2) 
+				(succeed value fail2)) 
+			(lambda () 
+				(second env succeed fail)))))) 
