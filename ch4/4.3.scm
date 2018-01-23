@@ -74,6 +74,22 @@
 
 (define (amb? exp) (tagged-list? exp 'amb))
 
+(define (analyze exp)
+  (cond ((self-evaluating? exp) 
+         (analyze-self-evaluating exp))
+        ((quoted? exp) (analyze-quoted exp))
+        ((variable? exp) (analyze-variable exp))
+        ((assignment? exp) (analyze-assignment exp))
+        ((definition? exp) (analyze-definition exp))
+        ((if? exp) (analyze-if exp))
+        ((lambda? exp) (analyze-lambda exp))
+        ((begin? exp) (analyze-sequence (begin-actions exp)))
+        ((cond? exp) (analyze (cond->if exp)))
+        ((application? exp) (analyze-application exp))
+        ((amb? exp) (analyze-amb exp))
+        (else
+         (error "Unknown expression type -- ANALYZE" exp))))
+
 (define (amb-choices exp) (cdr exp))
 
 (define (ambeval exp env succeed fail)
