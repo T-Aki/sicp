@@ -1,0 +1,30 @@
+(load "./4.3")
+(load "./ex4.51")
+(load "./ex4.52")
+
+(define (analyze exp)
+  (cond ((self-evaluating? exp) 
+         (analyze-self-evaluating exp))
+        ((quoted? exp) (analyze-quoted exp))
+        ((variable? exp) (analyze-variable exp))
+        ((assignment? exp) (analyze-assignment exp))
+        ((definition? exp) (analyze-definition exp))
+        ((if? exp) (analyze-if exp))
+        ((lambda? exp) (analyze-lambda exp))
+        ((begin? exp) (analyze-sequence (begin-actions exp)))
+        ((cond? exp) (analyze (cond->if exp)))
+        ((application? exp) (analyze-application exp))
+        ((amb? exp) (analyze-amb exp))
+        ((pernamenant-set? expr) (analyze-pernamenant-set expr)) 
+        ((if-fail? expr) (analyze-if-fail expr)) 
+        (else
+         (error "Unknown expression type -- ANALYZE" exp))))
+
+
+(let ((pairs '()))
+  (if-fail (let ((p (prime-sum-pair '(1 3 5 8) '(20 35 110))))
+             (permanent-set! pairs (cons p pairs))
+             (amb))
+           pairs))
+
+; ((8 35) (3 110) (3 20)) 
