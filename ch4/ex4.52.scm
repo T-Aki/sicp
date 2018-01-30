@@ -17,14 +17,14 @@
         (else
          (error "Unknown expression type -- ANALYZE" exp))))
 
-(define (if-fail? expr) (tagged-list? expr 'if-fail)) 
+(define (if-fail? exp) (tagged-list? exp 'if-fail)) 
 
-(define (analyze-if-fail expr) 
-	(let ((first (analyze (cadr expr))) 
-		(second (analyze (caddr expr)))) 
+(define (analyze-if-fail exp) 
+	(let ((sproc (analyze (cadr exp))) 
+		(fproc (analyze (caddr exp)))) 
 	(lambda (env succeed fail) 
-		(first env 
+		(sproc env 
 			(lambda (value fail2) 
 				(succeed value fail2)) 
 			(lambda () 
-				(second env succeed fail)))))) 
+				(fproc env succeed fail)))))) 

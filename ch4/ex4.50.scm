@@ -18,11 +18,11 @@
          (error "Unknown expression type -- ANALYZE" exp))))
 
 
-(define (analyze-ramb expr) 
- (analyze-amb (cons 'amb (ramb-choices expr)))) 
+(define (analyze-ramb exp) 
+ (analyze-amb (cons 'amb (ramb-choices exp)))) 
 
-(define (ramb? expr) (tagged-list? expr 'ramb)) 
-(define (ramb-choices expr) (shuffle-list (cdr expr)))
+(define (ramb? exp) (tagged-list? expr 'ramb)) 
+(define (ramb-choices expr) (shuffle-list (cdr exp)))
 
 (define (shuffle-list list)
   (if (< (length list) 2)
