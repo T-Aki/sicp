@@ -1,0 +1,14 @@
+
+
+;無限ストリームを連結しようとするとだめ
+
+(rule (loop ?x)
+  (or (loop1 ?x)
+      (loop2 ?x))
+
+(rule (loop1 ?x)
+	(loop1 ?x))
+
+(rule (loop2 ?x)
+	(loop2 ?x))
+
